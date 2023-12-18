@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aakouhar <aakouhar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/10 09:56:26 by aakouhar          #+#    #+#             */
-/*   Updated: 2023/12/18 11:29:14 by aakouhar         ###   ########.fr       */
+/*   Created: 2023/12/18 10:58:43 by aakouhar          #+#    #+#             */
+/*   Updated: 2023/12/18 11:27:01 by aakouhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 char    *ft_read(int fd, char *str)
 {
@@ -103,13 +103,13 @@ char    *new_save(char *str)
 
 char    *get_next_line(int fd)
 {
-    static char *save;
+    static char *save[OPEN_MAX];
     char        *line;
     
     if (fd < 0 || BUFFER_SIZE <= 0)
         return (NULL);
-    save = ft_read(fd, save);
-    line = ft_fill(save);
-    save = new_save(save);
+    save[fd] = ft_read(fd, save[fd]);
+    line = ft_fill(save[fd]);
+    save[fd] = new_save(save[fd]);
     return (line);
 }
